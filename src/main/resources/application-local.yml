@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/recipes
+    username: admin
+    password: admin
+  flyway:
+    locations: classpath:/db/migration/structure,classpath:/db/migration/sample
+
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: swagger-ui
+      client-secret: secret
+      token-url: https://localhost:8443/realms/recipes/protocol/openid-connect/token

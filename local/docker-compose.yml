@@ -1,0 +1,22 @@
+services:
+  db-recipes:
+    image: postgres:17
+    container_name: db-recipes
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data-recipes:/var/lib/postgresql/data-recipes
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=recipes
+    networks:
+      - recipes-network
+
+volumes:
+  db-data-recipes:
+    driver: local
+
+networks:
+  recipes-network:
+    name: recipes-net
