@@ -18,12 +18,11 @@ import kotlin.reflect.jvm.isAccessible
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-abstract class BaseEntity : Persistable<UUID> {
-
+abstract class BaseEntity(
 	@Id
-	@JvmField
 	@GeneratedValue(strategy = GenerationType.UUID)
-	val id: UUID = NEW_ENTITY_ID
+	private val id: UUID
+) : Persistable<UUID> {
 
 	/** Creation timestamp, set automatically by [AuditingEntityListener]. */
 	@CreatedDate

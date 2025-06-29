@@ -4,6 +4,7 @@ import info.ognibeni.recipes.persistence.BaseEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
+import jakarta.persistence.Transient
 
 @Entity
 @Table(name = "categories")
@@ -14,9 +15,12 @@ class Category(
 	@Column
 	val description: CategoryDescription?,
 
-	) : BaseEntity() {
+	@Transient
+	val uuid: CategoryUuid = CategoryUuid(NEW_ENTITY_ID),
+
+	) : BaseEntity(uuid.value) {
 
 	@Override
 	override fun toString(): String =
-		toString("id", "title", "description")
+		toString("title", "description")
 }

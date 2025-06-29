@@ -20,6 +20,7 @@ import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -94,5 +95,24 @@ class CategoryController(
 		apiCategoryCreate: ApiCategoryCreate): ApiCategory =
 		manageCategoryUseCase
 			.createCategory(apiCategoryCreate.toCategory())
+			.toApiCategory()
+
+	@Operation(summary = "Update an existing category")
+	@ApiResponses(value = [
+		ApiResponse(
+			responseCode = HttpURLConnection.HTTP_OK.toString(),
+			description = "Category successfully updated",
+			content = [Content(
+				schema = Schema(implementation = ApiCategory::class),
+				mediaType = MediaType.APPLICATION_JSON_VALUE
+			)]
+		)])
+	@PutMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	fun updateCategory(
+		@RequestBody
+		apiCategory: ApiCategory): ApiCategory =
+		manageCategoryUseCase
+			.updateCategory(apiCategory.toCategory())
 			.toApiCategory()
 }
